@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Heart, ShoppingBag, Star, Minus, Plus, ChevronRight, Truck, RotateCcw, Shield, Check, Package } from 'lucide-react';
 import { getProductById, getRelatedProducts } from '../data/products';
 import { useStore } from '../store/StoreContext';
@@ -8,14 +8,24 @@ import { useScrollReveal } from '../hooks/useUtils';
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { state, dispatch } = useStore();
   const product = useMemo(() => getProductById(id), [id]);
-  const related = useMemo(() => product ? getRelatedProducts(product, 4) : [], [product]);
+  const related = useMemo(() => (product ? getRelatedProducts(product, 4) : []), [product]);
 
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const [activeImage, setActiveImage] = useState(0);
+
+  // Naya product khulne par pehli image, size, color reset ho
+  useEffect(() => {
+    setActiveImage(0);
+    setSelectedSize(null);
+    setSelectedColor(null);
+    setQuantity(1);
+  }, [id]);
 
   if (!product) {
     return (
@@ -32,7 +42,22 @@ export default function ProductDetail() {
   }
 
   const isWishlisted = state.wishlist.includes(product.id);
-  const discountPercent = product.discount || (product.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0);
+  const price = product.price ?? 0;
+  const discountPercent =
+    product.discount ||
+    (product.originalPrice
+      ? Math.round(((product.originalPrice - price) / product.originalPrice) * 100)
+      : 0);
+
+  // Gallery ke liye images ki list: images array, nahi to thumbnail
+  // thumbnail sabse pehle, phir images; sirf http(s) links, duplicate hata ke
+  const images = [
+    ...new Set(
+      [product.thumbnail, ...(product.images || [])].filter(
+        (src) => typeof src === 'string' && src.startsWith('http')
+      )
+    ),
+  ];
 
   function handleAddToCart() {
     dispatch({
@@ -48,7 +73,7 @@ export default function ProductDetail() {
 
   function handleBuyNow() {
     handleAddToCart();
-    window.location.href = '/checkout';
+    navigate('/checkout');
   }
 
   const tabs = [
@@ -66,8 +91,11 @@ export default function ProductDetail() {
         <div className="container-main py-3 flex items-center gap-2 text-xs text-muted overflow-x-auto">
           <Link to="/" className="hover:text-burgundy transition-colors whitespace-nowrap">Home</Link>
           <ChevronRight size={12} />
-          <Link to={`/${product.collection === 'ethnic' ? 'ethnic-suits' : product.collection === 'casual' ? 'casual-outerwear' : 'footwear-accessories'}`} className="hover:text-burgundy transition-colors whitespace-nowrap capitalize">
-            {product.category.replace(/-/g, ' ')}
+          <Link
+            to={`/${product.collection === 'ethnic' ? 'ethnic-suits' : product.collection === 'casual' ? 'casual-outerwear' : 'footwear-accessories'}`}
+            className="hover:text-burgundy transition-colors whitespace-nowrap capitalize"
+          >
+            {(product.category || '').replace(/-/g, ' ')}
           </Link>
           <ChevronRight size={12} />
           <span className="text-dark font-medium truncate">{product.name}</span>
@@ -80,7 +108,27 @@ export default function ProductDetail() {
           <div className="grid md:grid-cols-2 gap-8 md:gap-14">
             {/* Image Gallery */}
             <div>
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-cream-dark via-cream to-ivory border border-border/50 flex items-center justify-center relative">
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-cream-dark via-cream to-ivory border border-border/50 relative">
+                {/* Fallback (image load na ho to ye dikhega) */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span className="font-serif text-5xl text-burgundy/15 font-bold">A&A</span>
+                  <p className="text-sm text-muted/40 mt-2">{product.name}</p>
+                </div>
+
+                {/* Main image */}
+                {images[activeImage] && (
+                  <img
+                    key={images[activeImage]}
+                    src={images[activeImage]}
+                    alt={product.name}
+                    referrerPolicy="no-referrer"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                )}
+
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
                   {product.isNew && (
@@ -90,30 +138,40 @@ export default function ProductDetail() {
                     <span className="px-3 py-1 bg-gold text-dark text-xs font-semibold rounded">-{discountPercent}%</span>
                   )}
                 </div>
-                <div className="text-center">
-                  <span className="font-serif text-5xl text-burgundy/15 font-bold">A&A</span>
-                  <p className="text-sm text-muted/40 mt-2">{product.name}</p>
-                </div>
               </div>
+
               {/* Thumbnail row */}
-              <div className="flex gap-3 mt-4 overflow-x-auto pb-2">
-                {[1, 2, 3, 4].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-16 h-20 rounded-lg flex-shrink-0 bg-gradient-to-br from-cream-dark to-cream border flex items-center justify-center cursor-pointer transition-all ${
-                      i === 0 ? 'border-burgundy ring-1 ring-burgundy/30' : 'border-border hover:border-burgundy'
-                    }`}
-                  >
-                    <span className="text-muted/30 text-[9px] font-serif">A&A</span>
-                  </div>
-                ))}
-              </div>
+              {images.length > 1 && (
+                <div className="flex gap-3 mt-4 overflow-x-auto pb-2">
+                  {images.map((img, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActiveImage(i)}
+                      className={`w-16 h-20 rounded-lg flex-shrink-0 overflow-hidden border transition-all ${i === activeImage
+                          ? 'border-burgundy ring-1 ring-burgundy/30'
+                          : 'border-border hover:border-burgundy'
+                        }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`${product.name} ${i + 1}`}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.visibility = 'hidden';
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Product Info */}
             <div>
               <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">
-                {(product.brand || product.category).replace(/-/g, ' ')}
+                {(product.brand || product.category || '').replace(/-/g, ' ')}
               </p>
               <h1 className="font-serif text-2xl md:text-3xl font-bold text-dark mb-3 leading-tight">
                 {product.name}
@@ -138,12 +196,12 @@ export default function ProductDetail() {
 
               {/* Price */}
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl font-bold text-dark">₹{product.price.toLocaleString()}</span>
-                {product.originalPrice && product.originalPrice > product.price && (
+                <span className="text-3xl font-bold text-dark">₹{price.toLocaleString()}</span>
+                {product.originalPrice && product.originalPrice > price && (
                   <>
                     <span className="text-lg text-muted line-through">₹{product.originalPrice.toLocaleString()}</span>
                     <span className="px-2 py-0.5 bg-success/10 text-success text-xs font-semibold rounded">
-                      Save ₹{(product.originalPrice - product.price).toLocaleString()}
+                      Save ₹{(product.originalPrice - price).toLocaleString()}
                     </span>
                   </>
                 )}
@@ -165,11 +223,10 @@ export default function ProductDetail() {
                       <button
                         key={color.name}
                         onClick={() => setSelectedColor(color.name)}
-                        className={`w-9 h-9 rounded-full border-2 transition-all ${
-                          (selectedColor || product.colors?.[0]) === color.name
+                        className={`w-9 h-9 rounded-full border-2 transition-all ${(selectedColor || product.colors?.[0]) === color.name
                             ? 'border-burgundy ring-2 ring-burgundy/20'
                             : 'border-border hover:border-muted'
-                        }`}
+                          }`}
                         style={{ backgroundColor: color.hex }}
                         title={color.name}
                       />
@@ -187,11 +244,10 @@ export default function ProductDetail() {
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2.5 border rounded-lg text-sm font-medium transition-all ${
-                          (selectedSize || product.sizes[0]) === size
+                        className={`px-4 py-2.5 border rounded-lg text-sm font-medium transition-all ${(selectedSize || product.sizes[0]) === size
                             ? 'bg-burgundy text-white border-burgundy'
                             : 'border-border text-dark hover:border-burgundy hover:text-burgundy'
-                        }`}
+                          }`}
                       >
                         {size}
                       </button>
@@ -242,11 +298,10 @@ export default function ProductDetail() {
                 </button>
                 <button
                   onClick={() => dispatch({ type: 'TOGGLE_WISHLIST', payload: product.id })}
-                  className={`w-12 h-12 flex items-center justify-center border rounded-lg transition-all ${
-                    isWishlisted
+                  className={`w-12 h-12 flex items-center justify-center border rounded-lg transition-all ${isWishlisted
                       ? 'bg-burgundy text-white border-burgundy'
                       : 'border-border text-muted hover:border-burgundy hover:text-burgundy'
-                  }`}
+                    }`}
                 >
                   <Heart size={18} fill={isWishlisted ? 'currentColor' : 'none'} />
                 </button>
@@ -282,9 +337,8 @@ export default function ProductDetail() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-5 py-4 text-sm font-medium whitespace-nowrap transition-colors relative ${
-                  activeTab === tab.id ? 'text-burgundy' : 'text-muted hover:text-dark'
-                }`}
+                className={`px-5 py-4 text-sm font-medium whitespace-nowrap transition-colors relative ${activeTab === tab.id ? 'text-burgundy' : 'text-muted hover:text-dark'
+                  }`}
               >
                 {tab.label}
                 {activeTab === tab.id && (

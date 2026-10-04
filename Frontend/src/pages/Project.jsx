@@ -83,17 +83,40 @@ export default function Project() {
   return (
     <div>
       {/* Hero */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-maroon to-burgundy relative">
-        <div className="container-main relative z-10 text-center">
-          <span className="text-gold/60 text-xs tracking-[0.3em] uppercase">Academic Project Documentation</span>
-          <h1 className="font-serif text-3xl md:text-5xl font-bold text-white mt-3 mb-4">
-            Project Documentation &<br /><span className="text-gold italic">Engineering Case Study</span>
-          </h1>
-          <p className="text-cream/60 max-w-xl mx-auto text-sm">
-            Complete technical documentation for ABHI & ABHAY COLLECTIONS — Men's Ethnic & Modern Fashion E-Commerce Frontend
-          </p>
-        </div>
-      </section>
+      <section className="py-16 md:py-20 relative overflow-hidden">
+
+  {/* Background Image */}
+  <img
+    src="/projectbackground.png"
+    alt=""
+    className="absolute inset-0 w-full h-full object-cover object-center"
+  />
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-black/40" />
+
+  {/* Content */}
+  <div className="container-main relative z-10 text-center">
+    
+    <span className="text-gold/60 text-xs tracking-[0.3em] uppercase">
+      Academic Project Documentation
+    </span>
+
+    <h1 className="font-serif text-3xl md:text-5xl font-bold text-white mt-3 mb-4">
+      Project Documentation &<br />
+      <span className="text-gold italic">
+        Engineering Case Study
+      </span>
+    </h1>
+
+    <p className="text-cream/60 max-w-xl mx-auto text-sm">
+      Complete technical documentation for ABHI & ABHAY COLLECTIONS —
+      Men's Ethnic & Modern Fashion E-Commerce Frontend
+    </p>
+
+  </div>
+
+</section>
 
       <div className="py-10 md:py-16">
         <div className="container-main max-w-4xl mx-auto space-y-12 md:space-y-16">

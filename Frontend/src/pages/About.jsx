@@ -15,20 +15,46 @@ export default function About() {
   return (
     <div>
       {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-maroon to-burgundy relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C5A24A' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/svg%3E")` }} />
+      <section className="py-20 md:py-28 relative overflow-hidden">
+
+        {/* Background Image */}
+        <img
+          src="AboutBackground.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Existing Decorative Pattern */}
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C5A24A' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/svg%3E")`
+          }}
+        />
+
+        {/* Content */}
         <div className="container-main relative z-10 text-center">
+
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-10 h-px bg-gold/40" />
             <Crown size={16} className="text-gold" />
             <div className="w-10 h-px bg-gold/40" />
           </div>
+
           <h1 className="font-serif text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
-            OUR STORY —<br /><span className="text-gold italic">The Thread of Maharashtra</span>
+            OUR STORY —<br />
+            <span className="text-gold italic">
+              The Thread of Maharashtra
+            </span>
           </h1>
+
           <p className="text-cream/60 max-w-xl mx-auto text-sm md:text-base">
             "Tradition, craftsmanship, and an evolved sense of elegance woven into modern menswear."
           </p>
+
         </div>
       </section>
 
@@ -37,11 +63,18 @@ export default function About() {
         <div className="container-main">
           <RevealSection>
             <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-              <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-cream-dark via-cream to-ivory border border-border/50 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <Crown size={48} className="text-gold/30 mx-auto mb-4" />
-                  <p className="font-serif text-xl text-burgundy/20 italic">Heritage Story</p>
-                </div>
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-border/50 group">
+
+                {/* Image */}
+                <img
+                  src="/TradtoMord.png"
+                  alt="Heritage Story"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+
               </div>
               <div>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold text-dark mb-6">

@@ -9,9 +9,8 @@ function RevealSection({ children, className = '', delay = 0 }) {
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
+      className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
@@ -26,61 +25,124 @@ export default function Home() {
   return (
     <div>
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-maroon via-burgundy to-maroon-deep">
+      <section className="relative min-h-[700px] overflow-hidden">
+
+        {/* HERO BACKGROUND IMAGE */}
+        <img
+          src="/hero image.png"
+          alt="Men's Fashion"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* DARK OVERLAY */}
+        <div className="absolute inset-0 bg-black/60" />
+
+        {/* Optional Burgundy Overlay */}
+        <div className="absolute inset-0 bg-[#430D1A]/20" />
+
         {/* Decorative overlay pattern */}
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C5A24A' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-        
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C5A24A' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
         {/* Gold corner accents */}
         <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-gold/30 m-6 hidden lg:block" />
         <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-gold/30 m-6 hidden lg:block" />
 
-        <div className="container-main relative z-10 py-20 md:py-0">
+        {/* ===== CONTENT OVER IMAGE ===== */}
+        <div className="container-main relative z-10 min-h-[700px] flex items-center justify-center py-20">
           <div className="max-w-3xl mx-auto text-center">
+
             {/* Ornamental top */}
             <div className="flex items-center justify-center gap-3 mb-8 animate-fade-in">
               <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold/60" />
+
               <Gem size={14} className="text-gold" />
-              <span className="text-gold/80 text-[11px] tracking-[0.3em] uppercase font-sans">Premium Indian Menswear</span>
+
+              <span className="text-gold text-[11px] tracking-[0.3em] uppercase font-sans">
+                Premium Indian Menswear
+              </span>
+
               <Gem size={14} className="text-gold" />
+
               <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold/60" />
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 animate-fade-in" style={{ animationDelay: '0.15s' }}>
-              Where Heritage Meets{' '}
-              <span className="text-gold italic">Modern Royalty</span>
+            {/* HERO TITLE */}
+            <h1
+              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 animate-fade-in"
+              style={{ animationDelay: "0.15s" }}
+            >
+              Where Heritage Meets{" "}
+              <span className="text-gold italic">
+                Modern Royalty
+              </span>
             </h1>
 
-            <p className="text-base md:text-lg text-cream/70 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              Timeless Maharashtrian-inspired menswear crafted for weddings, celebrations and every distinguished occasion.
+            {/* DESCRIPTION */}
+            <p
+              className="text-base md:text-lg text-white/75 max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in"
+              style={{ animationDelay: "0.3s" }}
+            >
+              Timeless Maharashtrian-inspired menswear crafted for weddings,
+              celebrations and every distinguished occasion.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: '0.45s' }}>
+            {/* BUTTONS */}
+            <div
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-in"
+              style={{ animationDelay: "0.45s" }}
+            >
               <Link
                 to="/ethnic-suits"
                 className="group flex items-center gap-2 px-8 py-3.5 bg-gold text-dark font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 text-sm tracking-wide"
               >
                 EXPLORE ETHNIC WEAR
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+
+                <ArrowRight
+                  size={16}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
               </Link>
+
               <Link
                 to="/casual-outerwear"
-                className="flex items-center gap-2 px-8 py-3.5 border-2 border-cream/30 text-cream font-medium rounded-lg hover:bg-cream/10 hover:border-cream/50 transition-all duration-300 text-sm tracking-wide"
+                className="flex items-center gap-2 px-8 py-3.5 border-2 border-white/40 text-white font-medium rounded-lg hover:bg-white/10 hover:border-white/60 transition-all duration-300 text-sm tracking-wide"
               >
                 VIEW ALL COLLECTIONS
               </Link>
             </div>
 
-            {/* Trust indicators */}
-            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            {/* TRUST INDICATORS */}
+            <div
+              className="flex flex-wrap items-center justify-center gap-6 md:gap-10 animate-fade-in"
+              style={{ animationDelay: "0.6s" }}
+            >
               {[
-                { icon: <Crown size={16} />, text: 'Premium Indian Craftsmanship' },
-                { icon: <Shirt size={16} />, text: 'Curated Menswear' },
-                { icon: <Sparkles size={16} />, text: 'Modern Royal Styling' },
+                {
+                  icon: <Crown size={16} />,
+                  text: "Premium Indian Craftsmanship",
+                },
+                {
+                  icon: <Shirt size={16} />,
+                  text: "Curated Menswear",
+                },
+                {
+                  icon: <Sparkles size={16} />,
+                  text: "Modern Royal Styling",
+                },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-cream/50 text-xs tracking-wide">
-                  <span className="text-gold/70">{item.icon}</span>
+                <div
+                  key={i}
+                  className="flex items-center gap-2 text-white/70 text-xs tracking-wide"
+                >
+                  <span className="text-gold">
+                    {item.icon}
+                  </span>
+
                   {item.text}
                 </div>
               ))}
@@ -88,33 +150,42 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-ivory dark:from-[#1A1614] to-transparent" />
+        {/* BOTTOM GRADIENT */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#F8F1E7] to-transparent" />
+
       </section>
 
       {/* ===== HERITAGE INTRO ===== */}
       <section className="py-20 md:py-28">
         <div className="container-main">
           <RevealSection>
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center ">
               {/* Image side */}
               <div className="relative">
-                <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-burgundy/10 to-gold/5 border border-border/50">
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-cream-dark via-cream to-ivory">
-                    <div className="text-center p-8">
-                      <Crown size={48} className="text-gold/40 mx-auto mb-4" />
-                      <p className="font-serif text-2xl text-burgundy/30 italic">Heritage & Craft</p>
-                    </div>
-                  </div>
+
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-cream border border-border/50">
+
+                  {/* Image */}
+                  <img
+                    src="/using image.png"
+                    alt="Abhi & Abhay Collections"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                  />
+
+                  {/* Dark Overlay */}
+                  <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+
                 </div>
-                {/* Decorative frame */}
+
+                {/* Decorative Frame */}
                 <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-gold/20 rounded-2xl -z-10 hidden md:block" />
+
               </div>
 
               {/* Story side */}
               <div>
                 <div className="ornament-divider mb-6 justify-start">
-                  <div className="ornament-diamond" />
+                  <div className="ornament-diamond"></div>
                 </div>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold text-dark mb-6 leading-tight">
                   THE ART OF<br />
@@ -164,21 +235,21 @@ export default function Home() {
                 title: 'Ethnic & Suits',
                 desc: 'Royal kurtas, sherwanis, bandhgalas, blazers, and wedding suits for distinguished occasions.',
                 path: '/ethnic-suits',
-                gradient: 'from-maroon to-burgundy',
+                image: '/Ethic.jpg',
                 icon: <Crown size={28} />,
               },
               {
                 title: 'Casual & Outerwear',
                 desc: 'Premium shirts, t-shirts, hoodies, trousers, and jackets for everyday sophistication.',
                 path: '/casual-outerwear',
-                gradient: 'from-brown to-brown-light',
+                image: '/casual.webp',
                 icon: <Shirt size={28} />,
               },
               {
                 title: 'Footwear & Accessories',
                 desc: 'Traditional mojari, kolhapuri chappals, watches, belts, wallets, and refined accessories.',
                 path: '/footwear-accessories',
-                gradient: 'from-gold-dark to-gold',
+                image: '/accesoriess iamge.png',
                 icon: <Gem size={28} />,
               },
             ].map((collection, i) => (
@@ -187,25 +258,47 @@ export default function Home() {
                   to={collection.path}
                   className="group block relative overflow-hidden rounded-2xl border border-border/50 bg-white dark:bg-[#231F1B] hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
                 >
-                  {/* Collection image placeholder */}
-                  <div className={`aspect-[4/3] bg-gradient-to-br ${collection.gradient} flex items-center justify-center relative overflow-hidden`}>
-                    <div className="text-white/20 group-hover:text-white/30 transition-colors duration-500 group-hover:scale-110 transition-transform">
-                      {collection.icon}
+
+                  {/* Collection Image */}
+                  <div className="aspect-[4/3] relative overflow-hidden">
+
+                    <img
+                      src={collection.image}
+                      alt={collection.title}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+
+                    {/* Dark Overlay */}
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500" />
+
+                    {/* Icon */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-white/70 group-hover:text-gold transition-all duration-500 group-hover:scale-110">
+                        {collection.icon}
+                      </div>
                     </div>
-                    {/* Overlay on hover */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+
                   </div>
+
+                  {/* Content */}
                   <div className="p-6">
+
                     <h3 className="font-serif text-xl font-semibold text-dark mb-2 group-hover:text-burgundy transition-colors">
                       {collection.title}
                     </h3>
+
                     <p className="text-sm text-muted leading-relaxed mb-4">
                       {collection.desc}
                     </p>
+
                     <span className="inline-flex items-center gap-1.5 text-sm font-medium text-burgundy group-hover:text-maroon transition-colors">
                       Explore Collection
-                      <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight
+                        size={14}
+                        className="group-hover:translate-x-1 transition-transform"
+                      />
                     </span>
+
                   </div>
                 </Link>
               </RevealSection>

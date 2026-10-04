@@ -29,12 +29,37 @@ export default function Contact() {
   return (
     <div>
       {/* Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-maroon to-burgundy relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C5A24A' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/svg%3E")` }} />
+      <section className="py-16 md:py-24 bottom-3 relative overflow-hidden">
+
+        {/* Background Image */}
+        <img
+          src="/contactback.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0" />
+
+        {/* Existing Decorative Pattern */}
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C5A24A' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Content */}
         <div className="container-main relative z-10 text-center">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4">LET'S CONNECT</h1>
-          <p className="text-cream/60 max-w-lg mx-auto">Visit our collection, speak with us or reach out for assistance.</p>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4">
+            LET'S CONNECT
+          </h1>
+
+          <p className="text-cream/60 max-w-lg mx-auto">
+            Visit our collection, speak with us or reach out for assistance.
+          </p>
         </div>
+
       </section>
 
       {/* Contact Actions */}
