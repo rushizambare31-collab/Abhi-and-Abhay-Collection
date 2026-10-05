@@ -224,7 +224,7 @@ export default function Contact() {
 
               {/* Content */}
               <div className="relative z-10 text-center">
-                <MapPin size={40} className="text-white/80 mx-auto mb-3" />
+                <MapPin size={40} className="text-white/80 mx-auto mb-3" /> 
 
                 <p className="text-sm text-white mb-4">
                   Nashik, Maharashtra, India
