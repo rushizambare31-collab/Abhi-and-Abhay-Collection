@@ -130,9 +130,10 @@ export default function Contact() {
                     <div className="w-10 h-10 rounded-full bg-burgundy/10 flex items-center justify-center flex-shrink-0">
                       <Mail size={18} className="text-burgundy" />
                     </div>
-                    <div>
+                    <div className="flex flex-col">
                       <h4 className="text-sm font-semibold text-dark mb-1">Email</h4>
                       <a href="mailto:abhishek.himeself@gmail.com" className="text-sm text-muted hover:text-burgundy">abhishek.himeself@gmail.com</a>
+                      <a href="mailto:abhishek.himeself@gmail.com" className="text-sm text-muted hover:text-burgundy">abhaypandit30224@gmail.com</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -212,17 +213,31 @@ export default function Contact() {
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-dark mb-2">Our Location</h2>
               <p className="text-sm text-muted">Find us in Nashik, Maharashtra</p>
             </div>
-            <div className="rounded-xl overflow-hidden border border-border/50 bg-cream-dark h-64 md:h-80 flex items-center justify-center relative">
-              <div className="text-center">
-                <MapPin size={40} className="text-burgundy/30 mx-auto mb-3" />
-                <p className="text-sm text-muted mb-4">Nashik, Maharashtra, India</p>
+            <div
+              className="rounded-xl overflow-hidden border border-border/50 h-64 md:h-80 flex items-center justify-center relative bg-cover bg-center"
+              style={{
+                backgroundImage: "url('/Location.png')",
+              }}
+            >
+              {/* Black Overlay */}
+              <div className="absolute inset-0 bg-black/30"></div>
+
+              {/* Content */}
+              <div className="relative z-10 text-center">
+                <MapPin size={40} className="text-white/80 mx-auto mb-3" />
+
+                <p className="text-sm text-white mb-4">
+                  Nashik, Maharashtra, India
+                </p>
+
                 <a
                   href="https://www.google.com/maps/search/Flat+no+B14+Neelkanth+Residency+Behind+Negal+Park+Shivaji+Nagar+Satpur+Nashik"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-2.5 bg-burgundy text-white rounded-lg text-sm font-medium hover:bg-maroon transition-colors"
                 >
-                  <ExternalLink size={14} /> OPEN IN GOOGLE MAPS
+                  <ExternalLink size={14} />
+                  OPEN IN GOOGLE MAPS
                 </a>
               </div>
             </div>
