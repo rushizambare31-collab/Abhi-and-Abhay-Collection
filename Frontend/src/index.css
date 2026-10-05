@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@custom-variant dark (&:where(.dark, .dark *));
 /* ===== CUSTOM THEME ===== */
 @theme {
   --color-burgundy: #5B1424;

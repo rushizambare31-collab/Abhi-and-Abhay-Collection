@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useStore, getCartCount } from '../store/StoreContext';
 import { searchProducts } from '../data/products';
 import { useDebounce, useBodyLock, useMediaQuery } from '../hooks/useUtils';
+import ThemeToggle from './ThemeToggle';
 import {
   Menu, X, Search, Heart, ShoppingBag, User, Sun, Moon,
   ChevronDown, ArrowRight, Phone, MapPin
