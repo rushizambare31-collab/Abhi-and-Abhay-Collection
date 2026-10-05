@@ -37,7 +37,9 @@ export default function Footer() {
                 <Mail size={16} />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/_.abhi_000"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-cream/60 hover:text-gold hover:border-gold transition-colors"
                 aria-label="Instagram"
               >

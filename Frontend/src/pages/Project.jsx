@@ -85,38 +85,38 @@ export default function Project() {
       {/* Hero */}
       <section className="py-16 md:py-20 relative overflow-hidden">
 
-  {/* Background Image */}
-  <img
-    src="/projectbackground.png"
-    alt=""
-    className="absolute inset-0 w-full h-full object-cover object-center"
-  />
+        {/* Background Image */}
+        <img
+          src="/projectbackground.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
 
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/40" />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/20" />
 
-  {/* Content */}
-  <div className="container-main relative z-10 text-center">
-    
-    <span className="text-gold/60 text-xs tracking-[0.3em] uppercase">
-      Academic Project Documentation
-    </span>
+        {/* Content */}
+        <div className="container-main relative z-10 text-center">
 
-    <h1 className="font-serif text-3xl md:text-5xl font-bold text-white mt-3 mb-4">
-      Project Documentation &<br />
-      <span className="text-gold italic">
-        Engineering Case Study
-      </span>
-    </h1>
+          <span className="text-gold/60 text-xs tracking-[0.3em] uppercase">
+            Academic Project Documentation
+          </span>
 
-    <p className="text-cream/60 max-w-xl mx-auto text-sm">
-      Complete technical documentation for ABHI & ABHAY COLLECTIONS —
-      Men's Ethnic & Modern Fashion E-Commerce Frontend
-    </p>
+          <h1 className="font-serif text-3xl md:text-5xl font-bold text-white mt-3 mb-4">
+            ABHI & ABHAY<br />
+            <span className="text-gold italic">
+              Men's Wear Collections
+            </span>
+          </h1>
 
-  </div>
+          <p className="text-cream/60 max-w-xl mx-auto text-sm">
+            Complete technical documentation for ABHI & ABHAY COLLECTIONS —
+            Men's Ethnic & Modern Fashion E-Commerce Frontend
+          </p>
 
-</section>
+        </div>
+
+      </section>
 
       <div className="py-10 md:py-16">
         <div className="container-main max-w-4xl mx-auto space-y-12 md:space-y-16">
@@ -129,18 +129,24 @@ export default function Project() {
               </div>
               <div className="p-6 grid sm:grid-cols-2 gap-4">
                 {[
-                  { label: 'Student Name', value: '[Student Name]' },
-                  { label: 'Project Title', value: 'ABHI & ABHAY COLLECTIONS — Men\'s Ethnic & Modern Fashion E-Commerce' },
-                  { label: 'Course', value: '[Course Name]' },
-                  { label: 'College', value: '[College Name]' },
+                  { label: 'Student Name', value: ['Abhishek Suresh Yadav', 'Abhay Harikishor Pandit'] },
+                  { label: 'Project Title', value: 'ABHI & ABHAY - Mens Wear Collections' },
+                  { label: 'Course', value: 'B.Com (Third Year)' },
+                  { label: 'College', value: 'BYK College' },
                   { label: 'Technology', value: 'React + JavaScript + Tailwind CSS' },
                   { label: 'Project Type', value: 'Frontend E-Commerce Web Application' },
-                  { label: 'Academic Year', value: '[Academic Year]' },
+                  { label: 'Academic Year', value: '2026 - 27' },
                   { label: 'Total Products', value: `${products.length} products in database` },
                 ].map((item, i) => (
                   <div key={i} className="flex flex-col py-2 border-b border-border/30 last:border-0">
                     <span className="text-xs text-muted uppercase tracking-wider">{item.label}</span>
-                    <span className="text-sm font-medium text-dark mt-0.5">{item.value}</span>
+                    {Array.isArray(item.value) ? (
+                      item.value.map((v, j) => (
+                        <span key={j} className="text-sm font-medium text-dark mt-0.5">{v}</span>
+                      ))
+                    ) : (
+                      <span className="text-sm font-medium text-dark mt-0.5">{item.value}</span>
+                    )}
                   </div>
                 ))}
               </div>
